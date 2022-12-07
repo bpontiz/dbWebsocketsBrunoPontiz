@@ -1,15 +1,30 @@
-import { express, Router} from 'express';
-import { Server as HttpServer} from 'http';
+import express from "express";
+import { Router} from 'express';
+import http from "http";
 import { Server as IOServer} from 'socket.io';
-import * as dotenv from './env';
+import comms from './sockets/comms.js';
+import cors from "cors";
+import * as dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(
+    cors({
+        origin: "*",
+        methods: "GET, POST, PUT, DELETE, OPTIONS",
+    })
+);
 const PORT = 8080 || process.env.PORT;
-const httpServer = HttpServer.createrServer(app);
-const io = new IOServer(httpServer);
+const httpServer = http.createServer(app);
+const io = new IOServer(httpServer, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+    }
+});
+comms(io);
 const apiRoutes = new Router();
 
 app.use("/", apiRoutes);

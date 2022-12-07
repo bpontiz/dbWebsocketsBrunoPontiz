@@ -7,8 +7,10 @@ const optionsMysql = {
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
         pass: process.env.DB_PASS,
-        database: process.env.DB_NAME
-    }
+        db: process.env.DB_NAME,
+        insecureAuth: true
+    },
+    pool: { min: 0, max: 10 }
 }
 
 export default optionsMysql;
