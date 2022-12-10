@@ -1,4 +1,4 @@
-import optionsMysql from './mariaDB.js';
+import { optionsMysql } from './mariaDB.js';
 import knex from 'knex';
 import productos from './productos.js';
 
@@ -6,7 +6,7 @@ import productos from './productos.js';
 (async () => {
     const databaseProductos = knex(optionsMysql);
     try {
-        await databaseProductos.schema.createTableIfNotExists('productos', (table) => {
+        await databaseProductos.schema.createTable('productos', (table) => {
             table.increments('id').primary();
             table.string('codigo');
             table.string('descripcion');
@@ -26,7 +26,7 @@ import productos from './productos.js';
 (async () => {
     const databaseCarritos = knex(optionsMysql);
     try {
-        await databaseCarritos.schema.createTableIfNotExists('carritos', (table) => {
+        await databaseCarritos.schema.createTable('carritos', (table) => {
             table.increments('id').primary();
             table.dateTime('timestamp');
         })
@@ -39,7 +39,7 @@ import productos from './productos.js';
 (async () => {
     const database = knex(optionsMysql);
     try {
-        await database.schema.createTableIfNotExists("carritos_productos", (table) => {
+        await database.schema.createTable("carritos_productos", (table) => {
         table.increments("id").primary();
         table.integer("carrito_id").unsigned().references("id").inTable("carritos");
         table.integer("producto_id").unsigned().references("id").inTable("productos");

@@ -1,6 +1,6 @@
 import mainControlador from "./mainControlador.js";
 import knex from 'knex';
-import { optionsMysql } from '../config/initializeDB.js';
+import { optionsMysql } from '../config/mariaDB.js';
 const database = knex(optionsMysql);
 
 class carritoControlador extends mainControlador {

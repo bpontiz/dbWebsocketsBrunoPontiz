@@ -1,4 +1,4 @@
-import { optionsMysql } from '../config/initializeDB.js';
+import { optionsMysql } from '../config/mariaDB.js';
 import knex from 'knex';
 const database = knex(optionsMysql);
 
